@@ -1,9 +1,7 @@
 package com.juaracoding.pages;
 
 import com.juaracoding.drivers.DriverSingleton;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
@@ -40,18 +38,34 @@ public class DemoQA {
     private WebElement btnCart;
     @FindBy(xpath = "//h1[@class='page-title']")
     private WebElement pageTitle;
+    @FindBy(xpath = "//div[@id='primary']//li[1]")
+    private WebElement txtErrorLogin;
 
 
 
 
     public void login() {
-        account.click();
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("window.scrollBy(0,1000)");
         username.sendKeys("Rezkykarunia8@gmail.com");
         password.sendKeys("Kitabersama");
         btnlogin.click();
     }
+    public void loginform(String username, String password){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,1000)");
+        account.click();
+        this.username.sendKeys(username);
+        this.password.sendKeys(password);
+        btnlogin.click();
+    }
+    public void clearUsername(){
+        username.sendKeys(Keys.CONTROL+"a");
+        username.sendKeys(Keys.DELETE);
+    }
+    public void clearPassword(){
+        password.sendKeys(Keys.CONTROL+"a");
+        password.sendKeys(Keys.DELETE);
+    }
+
 
     public void logoClick() {
         logoClick.click();
@@ -71,8 +85,20 @@ public class DemoQA {
         btnCart.click();
     }
 
-    public String getTxtCart(){
+    public String getTxtCart() {
         return pageTitle.getText();
+    }
+
+    public String getTxtErrorLogin(){
+        return txtErrorLogin.getText();
+    }
+    public String txtCart(){
+        return pageTitle.getText();
+        if(txtCart().equals("CART")){
+            System.out.println("Passes");
+        } else{
+            System.out.println("Failed");
+        }
     }
 
 }

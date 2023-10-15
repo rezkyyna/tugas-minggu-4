@@ -38,21 +38,29 @@ public class DemoQATest {
     }
 
     @Test(priority = 1)
-    public void login() {
+    public void loginError(){
+        demoQA.loginform("RezkyKarunia8@gmail.com", "");
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,700)");
+        Assert.assertEquals(demoQA.getTxtErrorLogin(), "Error: The password field is empty.");
+    }
+    @Test(priority = 2)
+    public void loginAccount(){
+        demoQA.clearUsername();
         demoQA.login();
     }
 
-    @Test(priority = 2)
+    @Test(priority = 3)
     public void goToMenu() {
         demoQA.logoClick();
     }
 
-    @Test(priority = 3)
+    @Test(priority = 4)
     public void testaddCart() {
         demoQA.addProduct();
     }
 
-    @Test(priority = 4)
+    @Test(priority = 5)
     public void testshowCart() {
         demoQA.goToCart();
         Assert.assertEquals(demoQA.getTxtCart(), "CART");
